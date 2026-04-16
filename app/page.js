@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 // ═══════════════════════════════════════════════════════════════════
 // DESIGN TOKENS
@@ -8,8 +8,6 @@ const BG0 = "#020810";
 const BG1 = "#05111C";
 const BG2 = "#091828";
 const BG3 = "#0D2035";
-const BG4 = "#112540";
-
 const B0 = "rgba(0, 100, 160, 0.15)";
 const B1 = "rgba(0, 130, 200, 0.30)";
 const B2 = "rgba(0, 170, 238, 0.55)";
@@ -81,7 +79,6 @@ function useScrollReveal() {
 // ═══════════════════════════════════════════════════════════════════
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", fn);
@@ -261,7 +258,7 @@ function Hero() {
         {/* Spec bar */}
         <div style={{
           display: "flex", gap: "2.5rem", flexWrap: "wrap",
-          marginTop: "5rem",
+          marginTop: "3rem",
           paddingTop: "2rem",
           borderTop: `1px solid ${B0}`,
           animation: "rgFadeUp 0.9s 0.4s ease both",
@@ -281,9 +278,84 @@ function Hero() {
         </div>
       </div>
 
+      {/* Blueprint image panel */}
+      <div style={{
+        position: "relative", zIndex: 10,
+        padding: "0 3rem 5rem",
+        maxWidth: 1200, margin: "0 auto", width: "100%",
+        animation: "rgFadeUp 1s 0.5s ease both",
+      }}>
+        {/* Panel header bar */}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "0.65rem 1.25rem",
+          background: BG3,
+          border: `1px solid ${B1}`,
+          borderBottom: "none",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <Dot status="active" />
+            <Mono color={TA} size="0.58rem">SYSTEM DIAGRAM — ROADGHOST RAPID DEPLOY CAMOUFLAGE SHELTER</Mono>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+            <Mono color={T2} size="0.52rem">DOC: RGS-DWG-4100-A</Mono>
+            <Mono color={T2} size="0.52rem">UNCLASSIFIED</Mono>
+          </div>
+        </div>
+
+        {/* Image wrapper */}
+        <div style={{
+          position: "relative",
+          border: `1px solid ${B1}`,
+          overflow: "hidden",
+          lineHeight: 0,
+        }}>
+          <img
+            src="/roadghost-blueprint.png"
+            alt="ROADGHOST Rapid Deploy Camouflage Shelter System — Technical Diagram"
+            style={{
+              width: "100%",
+              display: "block",
+              filter: "brightness(0.92) contrast(1.05) saturate(0.95)",
+            }}
+          />
+          {/* Subtle corner brackets */}
+          {[
+            { top: 12, left: 12, borderWidth: "1px 0 0 1px" },
+            { top: 12, right: 12, borderWidth: "1px 1px 0 0" },
+            { bottom: 12, left: 12, borderWidth: "0 0 1px 1px" },
+            { bottom: 12, right: 12, borderWidth: "0 1px 1px 0" },
+          ].map((pos, i) => (
+            <div key={i} style={{
+              position: "absolute", width: 20, height: 20,
+              borderColor: "rgba(0,170,238,0.5)", borderStyle: "solid",
+              borderWidth: pos.borderWidth, ...pos, pointerEvents: "none",
+            }} />
+          ))}
+          {/* Scan line overlay */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px)",
+            pointerEvents: "none",
+          }} />
+        </div>
+
+        {/* Panel footer */}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "0.55rem 1.25rem",
+          background: BG3,
+          border: `1px solid ${B1}`,
+          borderTop: `1px solid ${B0}`,
+        }}>
+          <Mono color={T2} size="0.5rem">© ROADGHOST SYSTEMS LLC — FOR AUTHORIZED REVIEW ONLY — NOT FOR PUBLIC RELEASE</Mono>
+          <Mono color={T2} size="0.5rem">SHEET 1 OF 4</Mono>
+        </div>
+      </div>
+
       {/* Bottom gradient fade */}
       <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: 200,
+        position: "absolute", bottom: 0, left: 0, right: 0, height: 120,
         background: `linear-gradient(transparent, ${BG0})`,
         pointerEvents: "none",
       }} />
